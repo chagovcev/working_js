@@ -1,8 +1,14 @@
 body{
     background-color: #B4FFE2;
+    font-family: Calibri, sans-serif;
 }
 
 h1{
     color: #080C0B;
     text-align: center;
+}
+
+p{
+    text-align: center;
+    font-size: 19px;
 }
