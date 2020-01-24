@@ -1,10 +1,19 @@
-var money = 1000;
+var money = 1500;
 var income = '500'; 
-var addExpenses = '30, 50, 150'; 
+var addExpenses = 'Интернет, Такси, Коммуналка, Кино'; 
 var deposit = true;
 var mission = 10000; 
 var period = 8;
+var budgetDay = 50;
 
-alert('Heloo my friend!');
 
-console.log('Something text');
+
+console.log('type of money: ', typeof money);
+console.log('type of income: ', typeof income);
+console.log('type of deposit: ', typeof deposit);
+console.log('length of the addExpenses: ', addExpenses.length);
+console.log('Период равен ', (period), ' месяцев. Цель заработать', (mission), 'евро');
+console.log('addExpenses: ', addExpenses.toLowerCase().split(', '));
+console.log('budgetDay: ', budgetDay);
+
+
