@@ -1,3 +1,5 @@
+'use strict';
+
 var money = 1500;
 var income = '500'; 
 var addExpenses = 'Интернет, Такси, Коммуналка, Кино'; 
