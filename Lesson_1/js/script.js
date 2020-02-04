@@ -46,7 +46,7 @@ function getExpensesMonth(){
 
     }
     console.log(expenses);
-    return sum+=sum;
+    return sum += sum;
     
 };
 
