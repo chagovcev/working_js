@@ -1,1 +1,21 @@
-alert('hi')
+'use strict';
+
+let start = document.getElementById('start'),
+    btnIncome = document.getElementsByTagName('button'),
+    btnExpenses = document.getElementsByTagName('button'),
+    depositCheck = document.querySelector('#deposit-check'),
+    additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
+    budgetMonthValue = document.getElementsByClassName('budget_month-value'),
+    budgetDayValue = document.getElementsByClassName('budget_day-value'),    
+    additionalExpensesValue = document.getElementsByClassName('additional_expenses-value'),
+    incomePeriodValue = document.getElementsByClassName('income_period-value'),
+    targetMonthValue = document.getElementsByClassName('target_month-value'),
+    resultExpensesMonth = document.querySelector('.result-expenses_month'),
+    salaryAmount = document.querySelector('.salary-amount'),
+    incomeTitle = document.querySelector('.income-title'),
+    incomeAmount = document.querySelector('.income-amount'),
+    expensesTitle = document.querySelector('.expenses-title'),
+    expensesAmount = document.querySelector('.expenses-amount'),
+    additionalExpensesItem = document.querySelector('.additional_expenses-item'),
+    targetAmount = document.querySelector('.target-amount'),
+    periodSelect = document.querySelector('.period-select');
