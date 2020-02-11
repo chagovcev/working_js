@@ -52,6 +52,7 @@ let appData = {
             appData.getAddExpenses();                       
             appData.getAddIncome();            
             appData.getBudget();
+            appData.calcPeriod()
 
             appData.showResult();
             
@@ -64,7 +65,10 @@ let appData = {
             additionalExpensesValue.value = appData.addExpenses.join(', ');
             additionalIncomeValue.value = appData.addIncome.join(', ');
             targetMonthValue.value = Math.ceil(appData.getTargetMonth());
-            incomePeriodValue.value = appData.calcPeriod();
+                      
+            periodSelect.addEventListener('input', appData.getPeriodAmount);
+            periodSelect.addEventListener('input',appData.calcPeriod);
+            
 
         },
         addExpensesBlock: function(){
@@ -162,7 +166,8 @@ let appData = {
             }
         },
         calcPeriod: function(){
-            return appData.budgetMonth * periodAmount.value;
+            let res = appData.budgetMonth * periodSelect.value; 
+            incomePeriodValue.value = res;                       
         }
 
 };
@@ -172,7 +177,9 @@ start.addEventListener('click', appData.start);
 
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
-periodSelect.addEventListener('input', appData.getPeriodAmount);
+
+
+
 
 
 // appData.getStatusIncome();
