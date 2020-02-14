@@ -1,6 +1,7 @@
 'use strict';
 
 let start = document.getElementById('start'),
+    cancel = document.getElementById('cancel'),
     btnPlus = document.getElementsByTagName('button'),
     incomePlus = btnPlus[0],
     expensesPlus = btnPlus[1],
@@ -19,20 +20,14 @@ let start = document.getElementById('start'),
     incomePeriodValue = document.getElementsByClassName('income_period-value')[0],   
     expensesItems = document.querySelectorAll('.expenses-items'),
     incomeItems = document.querySelectorAll('.income-items'),
-    periodAmount = document.querySelector('.period-amount'); 
+    periodAmount = document.querySelector('.period-amount'),
+    leftInputs = document.querySelector('.data').querySelectorAll('input[type=text]');
+    
+   
     
     
 
 
-let change = function(){
-    start.disabled = true;
-    if(salaryAmount.value !== ''){
-        start.disabled = false;
-    }
-};
-
-change();
-    
     
     
     
@@ -52,11 +47,10 @@ let appData = {
         percentDeposit: 0,
         moneyDeposit: 0,
         start: function() {  
-            
-                      
             appData.budget = +salaryAmount.value;
             
-            appData.blockBtn();
+            this.blockBtn;
+            appData.blockInputs();
             appData.getExpenses();
             appData.getIncome();
             appData.getExpensesMonth(); 
@@ -183,23 +177,70 @@ let appData = {
         },
         blockBtn: function(){
             if (salaryAmount.value === ''){
-                return console.log('ПУСТО');
+                start.disabled = true;                
             } else {
-                start.disabled = false;
-                start.addEventListener('click', appData.start);
+                start.disabled = false;                                            
             }
+        },
+        blockInputs: function() {
+            leftInputs[0].readOnly = true;
+            leftInputs[1].readOnly = true;
+            leftInputs[2].readOnly = true;
+            leftInputs[3].readOnly = true;
+            leftInputs[4].readOnly = true;
+            leftInputs[5].readOnly = true;
+            leftInputs[6].readOnly = true;
+            leftInputs[7].readOnly = true;
+            leftInputs[8].readOnly = true;
+            leftInputs[9].readOnly = true;
+            leftInputs[10].readOnly = true;
+            start.style.display = 'none';
+            cancel.style.display = 'block'; 
+        },
+        resetForm: function() {
+            leftInputs[0].readOnly = false;
+            leftInputs[1].readOnly = false;
+            leftInputs[2].readOnly = false;
+            leftInputs[3].readOnly = false;
+            leftInputs[4].readOnly = false;
+            leftInputs[5].readOnly = false;
+            leftInputs[6].readOnly = false;
+            leftInputs[7].readOnly = false;
+            leftInputs[8].readOnly = false;
+            leftInputs[9].readOnly = false;
+            leftInputs[10].readOnly = false;
+            leftInputs[0].value = '';
+            leftInputs[1].value = '';
+            leftInputs[2].value = '';
+            leftInputs[3].value = '';
+            leftInputs[4].value = '';
+            leftInputs[5].value = '';
+            leftInputs[6].value = '';
+            leftInputs[7].value = '';
+            leftInputs[8].value = '';
+            leftInputs[9].value = '';
+            leftInputs[10].value = '';
+            cancel.style.display = 'none'; 
+            start.style.display = 'block';            
         }
-        
-
 };
 
 
-// start.setAttribute('disabled', 'disabled');
 
- start.addEventListener('click', appData.start);
 
+//Привязка контекста вызова функции start к appData 
+
+// let bunch = function(){
+//     appData.start.apply(appData);
+// };
+// bunch();
+
+start.addEventListener('click', appData.start);
+cancel.addEventListener('click', appData.resetForm);
+salaryAmount.addEventListener('input', appData.blockBtn);
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
+appData.blockBtn();
 
 
 
