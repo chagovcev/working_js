@@ -54,7 +54,7 @@ AppData.prototype.start = function() {
     }
     let allInput = document.querySelectorAll('.data input[type = text');
         allInput.forEach(function (item) {
-            item.setAttribute('disabled', 'true')
+            item.setAttribute('disabled', 'true');
         });
 
     incomePlus.setAttribute('disabled', 'true');
