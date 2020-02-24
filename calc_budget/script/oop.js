@@ -20,7 +20,10 @@ const start = document.getElementById('start'),
     incomePeriodValue = document.getElementsByClassName('income_period-value')[0], 
     periodAmount = document.querySelector('.period-amount'),
     leftInputs = document.querySelector('.data').querySelectorAll('input[type=text]'),
-    checkBox = document.querySelector('.deposit-checkmark'); 
+    checkBox = document.querySelector('.deposit-checkmark'),
+    depositBank = document.querySelector('.deposit-bank'),
+    depositAmount = document.querySelector('.deposit-amount'), 
+    depositPercent = document.querySelector('.deposit-percent');
     
 let incomeItems = document.querySelectorAll('.income-items'),
     expensesItems = document.querySelectorAll('.expenses-items');
@@ -71,7 +74,8 @@ AppData.prototype.start = function() {
     this.getIncome();
     this.getExpensesMonth(); 
     this.getAddExpenses();                       
-    this.getAddIncome();            
+    this.getAddIncome(); 
+    this.getInfoDeposit();           
     this.getBudget();
     this.calcPeriod();
     this.getStatusIncome();
@@ -160,8 +164,10 @@ AppData.prototype.getExpensesMonth = function () {
     }              
 };
 AppData.prototype.getBudget = function () {
-    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
-    this.budgetDay = Math.floor(this.budgetMonth / 30);
+
+    const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
+    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
+    this.budgetDay = Math.floor(this.budgetMonth / 30);    
 };
 AppData.prototype.getTargetMonth = function () {
     return targetAmount.value / this.budgetMonth;
@@ -179,8 +185,8 @@ AppData.prototype.getStatusIncome = function() {
 };
 AppData.prototype.getInfoDeposit = function() {
     if(this.deposit){
-        this.percentDeposit = +prompt('Какой годовой процент?', '10');
-        this.moneyDeposit = +prompt('Ккаая сумма заложена', 5000);
+        this.percentDeposit = depositPercent.value;
+        this.moneyDeposit = depositAmount.value;
     }
 };
 AppData.prototype.calcPeriod = function(){
@@ -231,7 +237,51 @@ AppData.prototype.reset = function () {
 };
 const appData = new AppData();
 
-console.log(appData);
+
+
+AppData.prototype.changePercent = function(){
+    const valueSelect = this.value;
+    
+    depositPercent.value = valueSelect;
+    
+
+    if(valueSelect === 'other'){
+        depositPercent.style.display = 'inline-block'; 
+        depositPercent.value = '';
+        depositPercent.addEventListener('change', function() {
+            if(depositPercent.value > 100 ||
+                        depositPercent.value <= 0 ||
+                        isNaN(depositPercent.value)){
+                            start.setAttribute('disabled', 'true');
+                            alert('Введите корректное значение в поле проценты');
+                        } else {
+                            start.removeAttribute('disabled');
+                        }
+        });
+        
+     } else if(valueSelect !== 'other'){
+        depositPercent.style.display = 'none';
+        depositPercent.value = valueSelect;
+    }    
+};
+
+AppData.prototype.depositHandler = function(){
+    if(depositCheck.checked) {
+        depositBank.style.display = 'inline-block';
+        depositAmount.style.display = 'inline-block';
+        this.deposit = true;
+        depositBank.addEventListener('change', this.changePercent);
+    }  
+    else {
+        depositBank.style.display = 'none';
+        depositAmount.style.display = 'none';
+        depositBank.value = '';
+        depositAmount.value = '';
+        this.deposit = true;
+        depositBank.removeEventListener('change', this.changePercent);
+    }
+
+};
 
 AppData.prototype.eventListeners = function () {
     start.addEventListener('click', this.start.bind(appData));
@@ -249,7 +299,10 @@ AppData.prototype.eventListeners = function () {
         let element = appData.addExpenses[i].trom();
         element = element.charAt(0).toUpperCase() + element.substring(1).toLowerCase();
         addExp.push(element);
-}
+    }
+
+    depositCheck.addEventListener('change', this.depositHandler.bind(this));
+    
 };
 
 appData.eventListeners();
